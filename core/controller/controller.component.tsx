@@ -36,7 +36,7 @@ export const Controller: FC = () => {
             const path = aStar(mygraph, where.start.key, where.end.key);
             window.kakao.maps.event.trigger(map, 'route', path);
         } else {
-            console.log('fail');
+            message.error('경로를 다시 설정 해주세요.');
         }
     }
 
