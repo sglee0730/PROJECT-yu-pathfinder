@@ -71,6 +71,3 @@ export const aStar = (graph: graphInterface, start: string, end: string) => {
 
     return path;
 };
-
-
-

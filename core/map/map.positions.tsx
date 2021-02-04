@@ -6,7 +6,8 @@ export interface graphInterface {
         },
         vertex: {
             [connected: string]: number
-        },
+        } | string[],
+        
     }
 }
 

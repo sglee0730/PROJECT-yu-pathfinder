@@ -4,12 +4,17 @@ import styles from '../../styles/style.module.scss';
 import { initMarker } from './map.store';
 import { useRecoilValue } from 'recoil';
 import { nodeInterface } from './map.service';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
 
 declare global {
     interface Window {
         kakao: any;
     }
 }
+
+type KakaomapComponentProps = {
+    ref: Ref<HTMLDivElement>;
+};
 
 export let map;
 export const KakaoMap: FC = () => {
@@ -23,14 +28,19 @@ export const KakaoMap: FC = () => {
             level: 3 // 지도의 확대 레벨
         };
         map = new kakao.maps.Map(ref.current, mapOption);
-        const startMarker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(where.start.position.lat, where.start.position.lng)
-        }),
-            endMarker = new kakao.maps.Marker({
+
+        if (where.start.key) {
+            const startMarker = new kakao.maps.Marker({
+                position: new kakao.maps.LatLng(where.start.position.lat, where.start.position.lng)
+            })
+            .setMap(map);
+        }
+        if (where.end.key) {
+            const endMarker = new kakao.maps.Marker({
                 position: new kakao.maps.LatLng(where.end.position.lat, where.end.position.lng)
-            });
-        startMarker.setMap(map);
-        endMarker.setMap(map);
+            })
+            .setMap(map);
+        }
 
         kakao.maps.event.addListener(map, 'route', (path: nodeInterface[]) => {
             const linePath = path.map((item) => {
@@ -44,15 +54,27 @@ export const KakaoMap: FC = () => {
                 strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
                 strokeStyle: 'solid' // 선의 스타일입니다
             });
+            const distance = Math.round(path[0].gScore);
 
             polyline.setMap(map);
+            showOverlay(distance, linePath[0], map);
         });
 
     }, [ref.current]);
 
-    type KakaomapComponentProps = {
-        ref: Ref<HTMLDivElement>;
-    };
+    const showOverlay = (distance, position: any, map: any) => {
+        const content = `<div class=${styles.overlay}>총 거리<span>${distance}m</span></div>`
+        const customOverlay = new window.kakao.maps.CustomOverlay({
+            map: map, // 커스텀오버레이를 표시할 지도입니다
+            content: content,  // 커스텀오버레이에 표시할 내용입니다
+            position: position, // 커스텀오버레이를 표시할 위치입니다.
+            xAnchor: -0.1,
+            yAnchor: -0.1,
+            zIndex: 3 
+        })
+        customOverlay.setMap(map);
+    }
+
     const MapElement: FC<KakaomapComponentProps> = forwardRef((props, ref) => {
         return (
             <div ref={ref} className={styles.map}></div>
