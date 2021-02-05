@@ -13,7 +13,7 @@ const Index: FC = () => {
   return (
     <div>
       <Head>
-        <script type="text/javascript" src={process.env.apiKey}></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a203148bb7d5780a2387daa9e041f2a"></script>
       </Head>
       <Layout className={styles.layout}>
         <Header />
