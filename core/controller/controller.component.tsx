@@ -12,12 +12,16 @@ declare global {
         kakao: any;
     }
 }
+
 const { Option } = Select;
+const filteredPosition = Object
+    .entries(mygraph)
+    .filter(([_, value]: [string, any]) => value.description);
 
 export const Controller: FC = () => {
     const [where, setWhere] = useRecoilState(initMarker);
 
-    useEffect(() => {}, [where])
+    useEffect(() => { }, [where])
 
     const handleChange = (value: any, target: 'start' | 'end') => {
         if (target === 'start' && mygraph[value].position === where.end.position) {
@@ -26,7 +30,7 @@ export const Controller: FC = () => {
             message.error('올바르지 않은 경로입니다.');
         } else {
             setWhere((prev) => ({
-                ...prev, 
+                ...prev,
                 [target]: { key: value, position: mygraph[value].position }
             }));
         }
@@ -43,22 +47,20 @@ export const Controller: FC = () => {
     return (
         <div className={styles.position}>
             <Select placeholder="출발지" className={styles.select} onChange={(value) => handleChange(value, 'start')}>
-                <Option value="0">0</Option>
-                <Option value="1">1</Option>
-                <Option value="2">2</Option>
-                <Option value="3">3</Option>
-                <Option value="4">4</Option>
-                <Option value="5">5</Option>
-                <Option value="6">6</Option>
+                {
+                    filteredPosition.map((item: any) => {
+                        const [key, value] = item;
+                        return <Option key={key} value={key}>{value.description}</Option>
+                    })
+                }
             </Select>
             <Select placeholder="도착지" className={styles.select} onChange={(value) => handleChange(value, 'end')}>
-                <Option value="0">0</Option>
-                <Option value="1">1</Option>
-                <Option value="2">2</Option>
-                <Option value="3">3</Option>
-                <Option value="4">4</Option>
-                <Option value="5">5</Option>
-                <Option value="6">6</Option>
+                {
+                    filteredPosition.map((item: any) => {
+                        const [key, value] = item;
+                        return <Option key={key} value={key}>{value.description}</Option>
+                    })
+                }
             </Select>
             <Button type="primary" onClick={handleButtonClick}>찾기!</Button>
         </div>
