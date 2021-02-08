@@ -10,10 +10,12 @@ import { Header } from '../core/header/header.component';
 const { Content } = Layout;
 
 const Index: FC = () => {
+  const key = process.env.API_KEY;
+
   return (
     <div>
       <Head>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=78432b1cd54e8c06459c90b6a1ae31ae"></script>
+        <script type="text/javascript" src={key}></script>
       </Head>
       <Layout className={styles.layout}>
         <Header />

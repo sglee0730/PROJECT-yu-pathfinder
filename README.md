@@ -38,20 +38,15 @@ h(n): 꼭짓점 n으로부터 목표 꼭짓점까지의 추정 경로 가중치
 
 ## Demo
 
-현재는 샘플로 7개 Edge만 있고 직접 측정하여서 릴리즈 예정입니다.
+정확도 개선을 위해 Edge를 지속적으로 추가할 예정입니다.
 
-Netlify에서 배포하려 도메인도 구입하고 ssl 인증서도 발급 받았으나, 
 
-카카오맵 api 인증에 문제가 있어 임시로 오라클 클라우드 인스턴스에서 실행 중입니다.
-
-https 설정되지 않아 경고가 발생해 불편을 드려 죄송합니다.
-
-<a href="http://193.123.237.166:4321/">Demo Link</a>
+<a href="https://vercel.com/sglee0730/project-yu-pathfinder/2h2co73k8">Demo Link</a>
 
 
 
 
-
+## 
 
 
 
