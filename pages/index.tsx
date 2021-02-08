@@ -10,12 +10,11 @@ import { Header } from '../core/header/header.component';
 const { Content } = Layout;
 
 const Index: FC = () => {
-  const key = process.env.API_KEY;
 
   return (
     <div>
       <Head>
-        <script type="text/javascript" src={key}></script>
+        <script type="text/javascript" src={process.env.API_KEY}></script>
       </Head>
       <Layout className={styles.layout}>
         <Header />
