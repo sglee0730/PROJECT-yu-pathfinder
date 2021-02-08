@@ -41,7 +41,7 @@ h(n): 꼭짓점 n으로부터 목표 꼭짓점까지의 추정 경로 가중치
 정확도 개선을 위해 Edge를 지속적으로 추가할 예정입니다.
 
 
-<a href="https://vercel.com/sglee0730/project-yu-pathfinder/2h2co73k8">Demo Link</a>
+<a href="https://project-yu-pathfinder-2h2co73k8.vercel.app">Demo Link</a>
 
 
 
